@@ -1,10 +1,25 @@
 import React from 'react'
+import { AppContext } from '../../contexts/AppContext'
 
 const PaginationBtn = ({ number }) => {
+    const { state, setState } = React.useContext(AppContext);
+
+    const handleClick = () =>
+        setState(prevState => {
+            return {
+                ...prevState,
+                currentPage: number
+            }
+        })
+
     return (
-        <button className='pagination__button'>
-            {number}
-        </button>
+        <li className='pagination__li'>
+            <button onClick={handleClick}
+                className={`pagination__item
+                ${number === state.currentPage ? 'pagination__item--active' : ''}`}>
+                {number}
+            </button>
+        </li>
     )
 }
 

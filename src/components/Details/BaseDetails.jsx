@@ -7,13 +7,13 @@ const BaseDetails = ({ data, isLoading }) => {
         !isLoading
             ?
             <div>
-                < div > Capital : {capital}</div>
+                <h3 className="details__subtitle"> <strong className="details__strong">Capital</strong> : {capital}</h3>
                 {currencies.map(({ code, name, symbol }, index) => {
                     return (
-                        <div key={index}
+                        <h3 key={index}
                             className="details__currency">
-                            Currency: {name} - {code}  ({symbol})
-                        </div>
+                            <strong className="details__strong">Currency:</strong> {name} - {code}  ({symbol})
+                        </h3>
                     )
                 })}
             </div >

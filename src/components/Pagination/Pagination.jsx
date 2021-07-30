@@ -4,18 +4,20 @@ import './Pagination.css'
 import { AppContext } from '../../contexts/AppContext'
 
 const Pagination = () => {
-    const { state, setState } = React.useContext(AppContext);
+    const { state, } = React.useContext(AppContext);
+    const { pages } = state
 
     return (
-        <div className='pagination'>
-            <PaginationBtn number={'<'} />
-            <div>...</div>
-            <PaginationBtn number={2} />
-            <PaginationBtn number={3} />
-            <PaginationBtn number={4} />
-            <div>...</div>
-            <PaginationBtn number={state.pages} />
-        </div>
+        <nav >
+            <ul className='pagination'>
+                {pages !== null
+                    ? pages.map(number => (
+                        <PaginationBtn key={number} className='pagination__item' number={number} />
+                    ))
+                    : null
+                }
+            </ul>
+        </nav>
     )
 }
 

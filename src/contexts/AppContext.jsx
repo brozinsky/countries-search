@@ -4,8 +4,13 @@ const defaultValues = {
     state: {
         currentPage: 1,
         pages: null,
+        firstCountryIndex: 1,
+        lastCountryIndex: null,
+        allCountriesCount: null,
+        searchValue: '',
         countriesPerPage: 20,
         countryNames: [],
+        searchedCountries: null,
         countryData: {
             currencies: [],
             capital: '',
@@ -15,6 +20,7 @@ const defaultValues = {
             flag: '',
             languages: []
         },
+        isFilteredByName: false,
     },
     setState: state => { } // noop default callback
 };

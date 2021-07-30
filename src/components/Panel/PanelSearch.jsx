@@ -5,6 +5,7 @@ const namesAPI = 'https://restcountries.eu/rest/v2/name/'
 
 const PanelSearch = () => {
     const { state, setState } = React.useContext(AppContext);
+    const { searchValue } = state
 
     const handleChange = (e) => {
         const newValue = e.target.value
@@ -12,7 +13,7 @@ const PanelSearch = () => {
         setState(prevState =>
         ({
             ...prevState,
-            searchValue: newValue
+            searchValue: newValue,
         }))
         if (newValue !== '') getNames(searchAPI)
     }
@@ -29,25 +30,24 @@ const PanelSearch = () => {
                         });
                         return {
                             ...prevState,
-                            countryNames: dataArr
+                            searchedCountries: dataArr
                         }
                     })
                 } else {
                     setState(prevState => {
                         return {
                             ...prevState,
-                            countryNames: []
+                            searchedCountries: []
                         }
                     })
                 }
             })
-
     }
 
     return (
         <form>
             <input
-                value={state.searchValue}
+                value={searchValue}
                 className="panel__search-input"
                 type="text"
                 onChange={handleChange}

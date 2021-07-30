@@ -13,7 +13,6 @@ const Details = () => {
     const { id } = useParams()
     const { state, setState } = React.useContext(AppContext);
     const countryName = state.countryNames.find(country => country.id === id)
-    // const [loading, setLoading] = React.useState(false)
     const [loadingMore, setLoadingMore] = React.useState(false)
     const [loadMore, setLoadMore] = React.useState(false)
     const thisCountryApi = namesAPI + countryName.name
@@ -66,18 +65,18 @@ const Details = () => {
     }
 
     return (
-        <div className="details">
+        <section className="details">
             <Link to={`/`} className="details__back">
                 {"< Back"}
             </Link>
-            <h2>{countryName.name}</h2>
+            <h2 className="details__title">{countryName.name}</h2>
             < BaseDetails data={state.countryData} isLoading={loadingStatus} />
             {loadMore ? < MoreDetails name={countryName.name} data={state.countryData} isLoading={loadingMore} />
                 : null}
             {!loadMore ? <button
                 onClick={handleClick}
                 className="details__more-btn">Load more...</button> : null}
-        </div >
+        </section >
     )
 }
 

@@ -17,3 +17,7 @@
     min-width: 300px;
     max-width: 100vw;
 }
+
+.country__list-title{
+    margin: 0.8rem 0 0.3rem 0;
+}
