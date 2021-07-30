@@ -3,8 +3,8 @@ import React, { useState, createContext } from 'react';
 const defaultValues = {
     state: {
         currentPage: 1,
+        pages: null,
         countriesPerPage: 20,
-        searchValue: '',
         countryNames: [],
         countryData: {
             currencies: [],

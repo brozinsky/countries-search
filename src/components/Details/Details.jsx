@@ -4,6 +4,7 @@ import { AppContext } from '../../contexts/AppContext'
 import BaseDetails from './BaseDetails'
 import MoreDetails from './MoreDetails'
 import { Link } from "react-router-dom"
+import { useFetch } from '../../actions/useFetch'
 import './Details.css'
 
 const namesAPI = 'https://restcountries.eu/rest/v2/name/'
@@ -11,39 +12,39 @@ const namesAPI = 'https://restcountries.eu/rest/v2/name/'
 const Details = () => {
     const { id } = useParams()
     const { state, setState } = React.useContext(AppContext);
-    const countryName = state.countryNames.find(country => country.id == id)
-    const [loading, setLoading] = React.useState(false)
+    const countryName = state.countryNames.find(country => country.id === id)
+    // const [loading, setLoading] = React.useState(false)
     const [loadingMore, setLoadingMore] = React.useState(false)
     const [loadMore, setLoadMore] = React.useState(false)
     const thisCountryApi = namesAPI + countryName.name
 
+    const { loadingStatus, data } = useFetch('base-details', thisCountryApi)
+
     React.useEffect(() => {
-        setLoading(true)
-        getBaseDetails(thisCountryApi)
-    }, [])
+        if (loadingStatus)
+            console.log(loadingStatus)
+    }, [loadingStatus])
+
+    React.useEffect(() => {
+        if (data) {
+            const { capital, currencies } = data
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    countryData: {
+                        ...prevState.countryData,
+                        capital, currencies
+                    }
+                }
+            })
+
+        }
+    }, [data, setState])
 
     const handleClick = () => {
         setLoadingMore(true)
         setLoadMore(true)
         getMoreDetails(thisCountryApi)
-    }
-
-    const getBaseDetails = (API) => {
-        fetch(API)
-            .then((res) => res.json())
-            .then((data) => {
-                setState(prevState => {
-                    const { currencies, capital } = data[0]
-                    return {
-                        ...prevState,
-                        countryData: {
-                            ...prevState.countryData,
-                            currencies, capital
-                        }
-                    }
-                })
-                setLoading(false)
-            })
     }
 
     const getMoreDetails = (API) => {
@@ -70,7 +71,7 @@ const Details = () => {
                 {"< Back"}
             </Link>
             <h2>{countryName.name}</h2>
-            < BaseDetails data={state.countryData} isLoading={loading} />
+            < BaseDetails data={state.countryData} isLoading={loadingStatus} />
             {loadMore ? < MoreDetails name={countryName.name} data={state.countryData} isLoading={loadingMore} />
                 : null}
             {!loadMore ? <button
