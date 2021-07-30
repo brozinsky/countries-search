@@ -1,0 +1,36 @@
+.details{
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.details__back{
+    display: block;
+    color: #666;
+    text-decoration: none;
+    margin: 0.7rem;
+    padding: 0.2rem;
+    transition: 0.1s
+
+}
+
+.details__currency{
+    margin: 0.5rem 0;
+
+}
+
+.details__more-btn{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    color: rgb(8, 8, 104);
+    text-transform: uppercase;
+    max-width: 110px;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.details__more-btn:hover{
+    cursor: pointer;
+}

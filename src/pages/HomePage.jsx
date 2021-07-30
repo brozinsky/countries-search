@@ -1,17 +1,15 @@
 import React from 'react'
-import { AppContext } from '../contexts/AppContext'
-import Country from '../components/Country'
+import CountryList from '../components/Country/CountryList'
+import Panel from '../components/Panel/Panel'
+import Pagination from '../components/Pagination/Pagination'
 
 const HomePage = () => {
-    const { state, } = React.useContext(AppContext);
 
     return (
         <>
-            {state.countries.length > 0
-                ? state.countries.map(({ name, id }, index) => {
-                    return <Country key={index} name={name} id={id} />
-                })
-                : <p>loading...</p>}
+            <Panel />
+            <CountryList />
+            <Pagination />
         </>
     )
 }

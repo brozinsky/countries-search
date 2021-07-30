@@ -2,14 +2,19 @@ import React, { useState, createContext } from 'react';
 
 const defaultValues = {
     state: {
-        countries: [
-            {
-                name: '',
-                currencies: [],
-                capital: '',
-            }
-        ],
-        countyNames: []
+        currentPage: 1,
+        countriesPerPage: 20,
+        searchValue: '',
+        countryNames: [],
+        countryData: {
+            currencies: [],
+            capital: '',
+            population: '',
+            subregion: '',
+            region: '',
+            flag: '',
+            languages: []
+        },
     },
     setState: state => { } // noop default callback
 };
