@@ -6,8 +6,7 @@ const defaultValues = {
         pages: null,
         firstCountryIndex: 1,
         lastCountryIndex: null,
-        allCountriesCount: null,
-        searchValue: '',
+        searchValue: 'united',
         countriesPerPage: 20,
         countryNames: [],
         searchedCountries: null,
@@ -20,7 +19,6 @@ const defaultValues = {
             flag: '',
             languages: []
         },
-        isFilteredByName: false,
     },
     setState: state => { } // noop default callback
 };

@@ -20,11 +20,6 @@ const Details = () => {
     const { loadingStatus, data } = useFetch('base-details', thisCountryApi)
 
     React.useEffect(() => {
-        if (loadingStatus)
-            console.log(loadingStatus)
-    }, [loadingStatus])
-
-    React.useEffect(() => {
         if (data) {
             const { capital, currencies } = data
             setState(prevState => {
@@ -36,7 +31,6 @@ const Details = () => {
                     }
                 }
             })
-
         }
     }, [data, setState])
 

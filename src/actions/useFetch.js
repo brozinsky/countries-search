@@ -7,16 +7,22 @@ export const useFetch = (fetchType, API) => {
     useEffect(() => {
         setLoadingStatus(true)
         switch (fetchType) {
-            case 'all':
+            case 'search':
                 fetch(API)
                     .then((res) => res.json())
                     .then((data) => {
                         setData(() => {
-                            const dataArr = data.map(({ name }) => {
-                                const urlName = name.replace(/\s+/g, '-').toLowerCase()
-                                return { name, id: urlName }
-                            });
-                            return dataArr
+                            if (data.length > 0) {
+                                const dataArr = data.map(({ name }) => {
+                                    const urlName = name.replace(/\s+/g, '-').toLowerCase()
+                                    return { name, id: urlName }
+                                });
+                                return dataArr
+                            }
+                            else {
+
+                                return []
+                            }
                         })
                         setLoadingStatus(false)
                     })

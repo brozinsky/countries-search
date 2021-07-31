@@ -1,25 +1,29 @@
 import React from 'react'
 import { AppContext } from '../../contexts/AppContext'
 import Country from './Country'
+import ResultsInfo from './ResultsInfo'
 import { useFetch } from '../../actions/useFetch'
 import './Country.css';
 
-const allAPI = 'https://restcountries.eu/rest/v2/all'
+const nameAPI = 'https://restcountries.eu/rest/v2/name/'
 
 const CountryList = () => {
     const { state, setState } = React.useContext(AppContext);
-    const { searchValue, countryNames, currentPage, countriesPerPage, allCountriesCount, searchedCountries } = state
+    const { searchValue, countryNames, currentPage, countriesPerPage, searchedCountries } = state
 
-    const { loadingStatus, data } = useFetch('all', allAPI)
+    const searchAPI = nameAPI + searchValue
+    const { loadingStatus, data } = useFetch('search', searchAPI)
 
     // update pages count
     React.useEffect(() => {
         if (!loadingStatus) {
-            const pageNumbers = []
-            let maxCountries = allCountriesCount
-            if (searchValue !== '' && searchedCountries !== null) maxCountries = searchedCountries.length
-            for (let i = 1; i <= Math.ceil(maxCountries / countriesPerPage); i++) {
-                pageNumbers.push(i)
+            let pageNumbers = []
+            let maxCountries
+            if (searchValue !== '' && searchedCountries !== null) {
+                maxCountries = searchedCountries.length
+                for (let i = 1; i <= Math.ceil(maxCountries / countriesPerPage); i++) {
+                    pageNumbers.push(i)
+                }
             }
             setState((prevState) => {
                 return {
@@ -30,14 +34,12 @@ const CountryList = () => {
         }
     }, [countryNames, searchedCountries])
 
-
+    // update countries data
     React.useEffect(() => {
         if (data) {
-            let currentCountries
             const lastCountryIndex = currentPage * countriesPerPage
             const firstCountryIndex = lastCountryIndex - countriesPerPage
-            if (searchValue !== '' && searchedCountries !== null) currentCountries = searchedCountries.slice(firstCountryIndex, lastCountryIndex)
-            else currentCountries = data.slice(firstCountryIndex, lastCountryIndex)
+            const currentCountries = data.slice(firstCountryIndex, lastCountryIndex)
             currentCountries.sort((a, b) => a.name.localeCompare(b.name))
             setState(prevState => {
                 return {
@@ -45,20 +47,26 @@ const CountryList = () => {
                     firstCountryIndex,
                     lastCountryIndex,
                     allCountriesCount: data.length,
-                    countryNames: currentCountries
+                    countryNames: currentCountries,
+                    searchedCountries: data
                 }
             })
         }
-    }, [data, setState, currentPage, countriesPerPage, searchedCountries, searchValue])
+    }, [data, searchedCountries, searchValue, currentPage])
 
     return (
         <div className="country__list">
             <div className="country__list-title"> Results:</div>
-            {!loadingStatus
+            {searchedCountries !== null && searchedCountries.length !== 0 && searchValue !== ''
                 ? countryNames.map(({ name, id }, index) => {
                     return <Country key={index} name={name} id={id} />
                 })
-                : <div className="loading">loading...</div>}
+                : <ResultsInfo />}
+            {/* {!loadingStatus
+                ? countryNames.map(({ name, id }, index) => {
+                    return <Country key={index} name={name} id={id} />
+                })
+                : null} */}
         </div>
     )
 }
