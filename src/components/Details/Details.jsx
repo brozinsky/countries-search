@@ -66,7 +66,7 @@ const Details = () => {
 
     return (
         <section className="details">
-            <Link to={`/`} className="details__back">
+            <Link to={`/`} className="details__back-btn">
                 {"< Back"}
             </Link>
             <h2 className="details__title">{countryName.name}</h2>

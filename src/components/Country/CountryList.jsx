@@ -58,7 +58,7 @@ const CountryList = () => {
                 ? countryNames.map(({ name, id }, index) => {
                     return <Country key={index} name={name} id={id} />
                 })
-                : <p>loading...</p>}
+                : <div className="loading">loading...</div>}
         </div>
     )
 }

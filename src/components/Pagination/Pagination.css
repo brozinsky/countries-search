@@ -1,6 +1,8 @@
 .pagination{
     display: flex;
     flex-direction: row;
+    margin: 0.5rem 0 1rem 0;
+    padding: 0;
 }
 
 .pagination__li{
@@ -26,3 +28,17 @@
     background-color: #ddd;
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .pagination{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0 5vw;
+        justify-content: center;
+    }
+
+    .pagination__item{
+        margin: 0.2rem 0.35rem;
+    }
+  }

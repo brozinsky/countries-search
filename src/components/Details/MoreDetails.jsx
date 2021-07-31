@@ -7,21 +7,21 @@ const MoreDetails = ({ data, name, isLoading }) => {
         !isLoading
             ?
             <div className="details__more">
-                <h3 className="details__info"> <strong className="details__strong">Population:</strong> {population}</h3 >
-                <h3 className="details__info"> <strong className="details__strong">Subregion:</strong> {subregion}</h3>
-                <h3 className="details__info"><strong className="details__strong">Region:</strong> {region}</h3>
                 <img className="details__flag" src={flag} alt={name} />
-                <h3 className="details__info"> <strong className="details__strong">Languages:</strong>
+                <h4 className="details__info"> <strong className="details__strong">Population:</strong> {population}</h4 >
+                <h4 className="details__info"> <strong className="details__strong">Subregion:</strong> {subregion}</h4>
+                <h4 className="details__info"><strong className="details__strong">Region:</strong> {region}</h4>
+                <ul className="details__list"> <strong className="details__strong">Languages:</strong>
                     {languages.map(({ name, nativeName }, index) => {
                         return (
-                            <h3 key={index}
-                                className="details__currency">
-                                {name} ({nativeName})
-                            </h3>
+                            <li key={index}
+                                className="details__list-item">
+                                - {name} ({nativeName})
+                            </li>
                         )
-                    })}</h3>
+                    })}</ul>
             </div >
-            : <p>loading more...</p>
+            : <div className="loading">loading more...</div>
     )
 }
 

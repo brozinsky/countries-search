@@ -3,6 +3,21 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 90vh;
-    margin: 5vh;
+    height: 100vh;
 }
+
+.loading{
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+  }
